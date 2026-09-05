@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tiffins Care - Manavnagar, Dighori, Nagpur | Real-Time Tracker & Booking Portal</title>
+  <!-- Tailwind CSS & FontAwesome -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for Power BI Analytics Simulation -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    
+    .green-gradient-bg {
+      background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #059669 100%);
+    }
+    .green-card-gradient {
+      background: linear-gradient(145deg, #ffffff, #f0fdf4);
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #f0fdf4; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+
+    /* Thermal Print Slip Styles (80mm standard POS) */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #thermalPrintArea, #thermalPrintArea * {
+        visibility: visible;
+      }
+      #thermalPrintArea {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 80mm;
+        margin: 0;
+        padding: 4mm;
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-family: 'Courier New', Courier, monospace !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-emerald-50/40 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-emerald-900 text-emerald-100 text-xs py-1.5 px-4 text-center border-b border-emerald-800 font-medium flex justify-center items-center gap-2">
+    <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+    <span>📍 Delivering Fresh Homemade Tiffins across <b>Manavnagar, Dighori, Nagpur</b>! Call/WhatsApp: 9356688361</span>
+  </div>
+
+  <!-- Main Navbar Header -->
+  <header class="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-emerald-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="bg-gradient-to-tr from-emerald-600 to-teal-500 text-white p-3 rounded-2xl shadow-lg shadow-emerald-600/30">
+          <i class="fa-solid fa-utensils text-2xl"></i>
+        </div>
+        <div>
+          <span class="font-black text-2xl tracking-tight text-emerald-950">TIFFINS CARE</span>
+          <div class="text-xs text-emerald-700 flex items-center gap-1.5 font-semibold">
+            <i class="fa-solid fa-location-dot text-emerald-600"></i> Manavnagar, Dighori, Nagpur (MH)
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation & Quick WhatsApp Contact -->
+      <div class="flex items-center gap-3 sm:gap-4">
+        <a href="#menuSection" class="hidden md:inline-block text-xs font-bold text-emerald-800 hover:text-emerald-600 px-3 py-2 rounded-lg transition">Menu & Pricing</a>
+        <a href="#orderSection" class="hidden md:inline-block text-xs font-bold text-emerald-800 hover:text-emerald-600 px-3 py-2 rounded-lg transition">Book Tiffin</a>
+        <a href="#powerBiSection" class="hidden md:inline-block text-xs font-bold text-emerald-800 hover:text-emerald-600 px-3 py-2 rounded-lg transition">Live Dashboard</a>
+        <a href="#reviewsSection" class="hidden md:inline-block text-xs font-bold text-emerald-800 hover:text-emerald-600 px-3 py-2 rounded-lg transition">Reviews</a>
+
+        <a href="https://wa.me/919356688361?text=Hello%20Tiffins%20Care%20Manavnagar%20Dighori%20Nagpur%2C%20I%20want%20to%20inquire%20about%20tiffin%20services." target="_blank" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl shadow-md shadow-emerald-600/20 transition flex items-center gap-2">
+          <i class="fa-brands fa-whatsapp text-lg text-emerald-200"></i>
+          <span>9356688361</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="green-gradient-bg text-white py-14 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 space-y-4">
+        <span class="px-3.5 py-1.5 bg-emerald-800/80 border border-emerald-400/30 text-emerald-200 rounded-full text-xs font-bold tracking-wide uppercase inline-flex items-center gap-2">
+          <i class="fa-solid fa-seedling text-emerald-400"></i> 100% Pure, Hygienic & Homely Meals
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Delicious North & South Indian Tiffins in <span class="text-emerald-300">Manavnagar, Dighori, Nagpur</span>
+        </h1>
+        <p class="text-emerald-100 text-sm sm:text-base leading-relaxed max-w-2xl">
+          Freshly cooked breakfast, half tiffins, and full meal subscriptions delivered right to your doorstep. Auto-saved history, instant thermal invoice generation, and WhatsApp dispatch.
+        </p>
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="#orderSection" class="px-6 py-3 bg-white text-emerald-900 hover:bg-emerald-50 font-extrabold rounded-xl shadow-lg transition text-sm flex items-center gap-2">
+            <i class="fa-solid fa-bowl-food text-emerald-600"></i> Subscribe / Order Now
+          </a>
+          <a href="#powerBiSection" class="px-6 py-3 bg-emerald-800/70 hover:bg-emerald-800 border border-emerald-400/30 text-white font-bold rounded-xl transition text-sm flex items-center gap-2">
+            <i class="fa-solid fa-chart-line text-emerald-300"></i> Real-time Dashboard
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Rate Card Pill -->
+      <div class="lg:col-span-5">
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-6 text-white space-y-4 shadow-xl">
+          <h3 class="text-base font-bold text-emerald-200 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-tags text-emerald-300"></i> Subscription Plans Summary
+          </h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-emerald-900/60 p-4 rounded-xl border border-emerald-500/30">
+              <span class="text-[11px] uppercase font-bold text-emerald-300 block">Half Tiffin Plan</span>
+              <div class="text-2xl font-black text-white mt-1">₹2,500 <span class="text-xs font-normal text-emerald-200">/mo</span></div>
+              <p class="text-[11px] text-emerald-100 mt-1">1 Sabzi, 4 Chapatis, Dal & Rice</p>
+            </div>
+            <div class="bg-emerald-900/60 p-4 rounded-xl border border-emerald-500/30">
+              <span class="text-[11px] uppercase font-bold text-emerald-300 block">Full Tiffin Plan</span>
+              <div class="text-2xl font-black text-white mt-1">₹3,000 <span class="text-xs font-normal text-emerald-200">/mo</span></div>
+              <p class="text-[11px] text-emerald-100 mt-1">2 Sabzis, 6 Chapatis, Dal, Rice & Salad</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-emerald-950/70 p-3 rounded-xl border border-emerald-500/20 text-xs text-emerald-200">
+              <span class="font-bold text-white block">Morning Breakfast</span>
+              <span>Poha, Idli, Upma, Dosa</span>
+              <div class="font-bold text-emerald-300 mt-1">₹1,000 /mo</div>
+            </div>
+            <div class="bg-emerald-950/70 p-3 rounded-xl border border-emerald-500/20 text-xs text-emerald-200">
+              <span class="font-bold text-white block">Trial Meal Single</span>
+              <span>Complete Lunch/Dinner</span>
+              <div class="font-bold text-emerald-300 mt-1">₹120 /meal</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Grid Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-10">
+
+    <!-- MENU SECTION -->
+    <section id="menuSection" class="space-y-6">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <span class="text-xs font-black uppercase tracking-widest text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Authentic Fresh Menus</span>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900">North & South Indian Specialties</h2>
+        <p class="text-slate-500 text-xs sm:text-sm">Prepared with pure RO water, premium oils, farm-fresh vegetables & zero preservatives.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- North Indian Menu Card -->
+        <div class="green-card-gradient p-6 rounded-2xl border border-emerald-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl mb-4 shadow-md shadow-emerald-600/30">
+            🍲
+          </div>
+          <h3 class="text-lg font-bold text-emerald-950">North Indian Menu</h3>
+          <p class="text-xs text-emerald-700 font-semibold mb-3">Rich curries, fresh wheat rotis & jeera rice</p>
+          <ul class="text-xs text-slate-600 space-y-2 border-t border-emerald-100 pt-3">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Paneer Butter Masala / Aloo Gobhi</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Dal Tadka / Dal Fry / Panchmel Dal</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> 100% Whole Wheat Phulkas & Ghee Rotis</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Steamed Basmati / Jeera Pulao</li>
+          </ul>
+        </div>
+
+        <!-- South Indian Menu Card -->
+        <div class="green-card-gradient p-6 rounded-2xl border border-emerald-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl mb-4 shadow-md shadow-emerald-600/30">
+            🥥
+          </div>
+          <h3 class="text-lg font-bold text-emerald-950">South Indian Menu</h3>
+          <p class="text-xs text-emerald-700 font-semibold mb-3">Traditional sambar, rasam, kootu & curd rice</p>
+          <ul class="text-xs text-slate-600 space-y-2 border-t border-emerald-100 pt-3">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Drumstick Madras Sambar & Mysore Rasam</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Avial / Veg Poriyal / Cabbage Kootu</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Sona Masoori Rice & Curd Rice (Thayir Sadam)</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Coconut Chutney & Appalam Papad</li>
+          </ul>
+        </div>
+
+        <!-- Healthy Breakfast Card -->
+        <div class="green-card-gradient p-6 rounded-2xl border border-emerald-200 shadow-sm hover:shadow-md transition">
+          <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center font-bold text-xl mb-4 shadow-md shadow-emerald-600/30">
+            ☕
+          </div>
+          <h3 class="text-lg font-bold text-emerald-950">Healthy Morning Breakfast</h3>
+          <p class="text-xs text-emerald-700 font-semibold mb-3">Hot, energizing breakfast boxes delivered by 7:30 AM</p>
+          <ul class="text-xs text-slate-600 space-y-2 border-t border-emerald-100 pt-3">
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Nagpur Style Tarri Poha & Sheera</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Steamed Idli-Vada with Hot Sambar</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Masala Dosa, Uttapam & Upma</li>
+            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-600"></i> Aloo Paratha with Fresh Curd & Pickle</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CUSTOMER ORDER & ENQUIRY USERFORM (WITH PERSISTENCE & THERMAL INVOICE) -->
+    <section id="orderSection" class="bg-white rounded-3xl border border-emerald-200 p-6 sm:p-10 shadow-lg relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-100/40 rounded-full blur-3xl -z-0"></div>
+
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Form Left Column: Inputs -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="border-b border-emerald-100 pb-4 flex justify-between items-start">
+            <div>
+              <span class="text-xs font-black uppercase tracking-wider text-emerald-600">Customer Registration</span>
+              <h2 class="text-2xl font-black text-slate-900 mt-1">Tiffin Booking & Enquiry Userform</h2>
+              <p class="text-slate-500 text-xs">Fill your details below to schedule lunch/dinner delivery at Manavnagar, Dighori, Nagpur.</p>
+            </div>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">
+              <i class="fa-solid fa-floppy-disk mr-1"></i> Auto-Saved
+            </span>
+          </div>
+
+          <form id="tiffinOrderForm" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <!-- Customer Name -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Full Name <span class="text-rose-500">*</span></label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-emerald-600"><i class="fa-solid fa-user text-sm"></i></span>
+                  <input type="text" id="custName" placeholder="e.g. Rahul Deshmukh" required class="w-full pl-10 pr-3.5 py-2.5 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none">
+                </div>
+              </div>
+
+              <!-- Mobile Number -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Mobile Number (WhatsApp) <span class="text-rose-500">*</span></label>
+                <div class="relative">
+                  <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-emerald-600"><i class="fa-solid fa-phone text-sm"></i></span>
+                  <input type="tel" id="custMobile" placeholder="e.g. 9356688361" maxlength="10" required class="w-full pl-10 pr-3.5 py-2.5 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none">
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Complete Delivery Address in Manavnagar Dighori Nagpur -->
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Delivery Address & Landmark (Manavnagar, Dighori, Nagpur) <span class="text-rose-500">*</span></label>
+              <div class="relative">
+                <span class="absolute top-3 left-3.5 text-emerald-600"><i class="fa-solid fa-location-dot text-sm"></i></span>
+                <textarea id="custAddress" placeholder="Flat / House No, Building Name, Manavnagar, Dighori, Nagpur - 440034" required rows="2" class="w-full pl-10 pr-3.5 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 focus:bg-white outline-none resize-none"></textarea>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              
+              <!-- Dish Preference -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Dish Menu Type</label>
+                <select id="custDish" class="w-full px-3 py-2.5 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none font-medium">
+                  <option value="North Indian Dish">North Indian Dish</option>
+                  <option value="South Indian Dish">South Indian Dish</option>
+                  <option value="Special Combo (North + South)">Special Combo (North + South)</option>
+                </select>
+              </div>
+
+              <!-- Tiffin Plan & Rate -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Tiffin Plan</label>
+                <select id="custPlan" class="w-full px-3 py-2.5 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none font-bold text-emerald-900">
+                  <option value="Half Tiffin (₹2500/mo)" data-price="2500">Half Tiffin - ₹2,500 / mo</option>
+                  <option value="Full Tiffin (₹3000/mo)" data-price="3000" selected>Full Tiffin - ₹3,000 / mo</option>
+                  <option value="Trial Meal (₹120)" data-price="120">Trial Meal - ₹120 / meal</option>
+                  <option value="Breakfast Plan (₹1000/mo)" data-price="1000">Morning Breakfast - ₹1,000 / mo</option>
+                  <option value="Full Tiffin + Breakfast (₹4000/mo)" data-price="4000">Full Tiffin + Breakfast - ₹4,000 / mo</option>
+                </select>
+              </div>
+
+              <!-- Payment Mode -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Payment Mode</label>
+                <select id="custPayment" class="w-full px-3 py-2.5 bg-emerald-50/40 border border-emerald-200 rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none font-medium">
+                  <option value="PhonePe">PhonePe (UPI)</option>
+                  <option value="Google Pay (GPay)">Google Pay (GPay)</option>
+                  <option value="Paytm">Paytm UPI / Wallet</option>
+                  <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
+                </select>
+              </div>
+
+            </div>
+
+            <!-- Policy Warning for User -->
+            <div class="p-3 bg-amber-50 border-l-4 border-amber-500 rounded-r-xl text-amber-900 text-xs flex items-center gap-2">
+              <i class="fa-solid fa-triangle-exclamation text-amber-600 text-sm"></i>
+              <span><b>Advance Payment Policy:</b> Advance booking amount for Half Tiffin, Full Tiffin, Breakfast & Trial Meal is <u>strictly non-refundable</u>.</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button type="submit" class="flex-1 py-3 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-2 text-sm">
+                <i class="fa-solid fa-circle-check"></i> Submit Booking & Save
+              </button>
+              <button type="button" onclick="sendWhatsAppDirect()" class="py-3 px-6 bg-emerald-800 hover:bg-emerald-900 text-emerald-100 font-bold rounded-xl transition flex items-center justify-center gap-2 text-sm border border-emerald-700">
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-base"></i> Send on WhatsApp
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Form Right Column: Live Bill & Payment Summary -->
+        <div class="lg:col-span-5 bg-gradient-to-br from-emerald-900 to-teal-950 text-white p-6 rounded-2xl border border-emerald-800 shadow-xl space-y-5">
+          <div class="flex justify-between items-center border-b border-emerald-800 pb-3">
+            <span class="text-xs font-bold uppercase text-emerald-300">Live Order Memo (Real-Time - Last Record)</span>
+            <span class="text-[10px] bg-emerald-700/60 px-2.5 py-1 rounded-full text-emerald-100 font-mono">Manavnagar Hub</span>
+          </div>
+
+          <!-- Highlight Last Record Details -->
+          <div class="bg-emerald-950/80 p-3.5 rounded-xl border border-emerald-600/40 space-y-2">
+            <div class="flex justify-between items-center text-[11px] text-emerald-400 font-bold">
+              <span>🌟 LATEST BOOKING ENTRY</span>
+              <span id="memoLastId" class="font-mono bg-emerald-800 px-2 py-0.5 rounded text-white">TC-2026-LIVE</span>
+            </div>
+            <div class="flex justify-between text-xs text-emerald-200">
+              <span>Status:</span>
+              <span id="memoLastStatus" class="font-bold text-amber-300 bg-amber-950/60 px-2 py-0.5 rounded border border-amber-600/30">Received / Preparing</span>
+            </div>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <div class="flex justify-between text-emerald-200">
+              <span>Customer:</span>
+              <strong class="text-white" id="memoName">Rahul Deshmukh</strong>
+            </div>
+            <div class="flex justify-between text-emerald-200">
+              <span>Mobile No:</span>
+              <strong class="text-white font-mono" id="memoMobile">9356688361</strong>
+            </div>
+            <div class="flex justify-between text-emerald-200">
+              <span>Address:</span>
+              <span class="text-white text-right max-w-[200px] truncate" id="memoAddress">Manavnagar, Dighori, Nagpur</span>
+            </div>
+            <div class="flex justify-between text-emerald-200">
+              <span>Selected Plan:</span>
+              <strong class="text-emerald-300" id="memoPlan">Full Tiffin - ₹3,000 / mo</strong>
+            </div>
+            <div class="flex justify-between text-emerald-200">
+              <span>Dish Category:</span>
+              <strong class="text-white" id="memoDish">North Indian Dish</strong>
+            </div>
+            <div class="flex justify-between text-emerald-200">
+              <span>Payment Option:</span>
+              <span class="bg-emerald-800 px-2 py-0.5 rounded text-white font-mono font-bold" id="memoPayment">PhonePe</span>
+            </div>
+          </div>
+
+          <div class="border-t border-dashed border-emerald-700 pt-4 flex justify-between items-end">
+            <div>
+              <span class="text-[10px] uppercase tracking-wider text-emerald-300 block">Calculated Total</span>
+              <div class="text-3xl font-black text-emerald-300" id="memoTotal">₹3,000</div>
+            </div>
+            <span class="text-[11px] text-emerald-200 bg-emerald-800/80 px-2.5 py-1 rounded-lg">Doorstep Delivery Included</span>
+          </div>
+
+          <!-- Accepted Payment Modes Badge Grid -->
+          <div class="pt-2 border-t border-emerald-800/80">
+            <span class="text-[10px] uppercase font-bold text-emerald-400 block mb-2">Supported Payment Gateways</span>
+            <div class="grid grid-cols-4 gap-2 text-center text-[11px] font-bold text-slate-800">
+              <div class="bg-white p-2 rounded-lg shadow-sm">🟣 PhonePe</div>
+              <div class="bg-white p-2 rounded-lg shadow-sm">🔵 GPay</div>
+              <div class="bg-white p-2 rounded-lg shadow-sm">🔷 Paytm</div>
+              <div class="bg-white p-2 rounded-lg shadow-sm">💵 Cash</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- POWER BI-STYLE ORDER & DELIVERY DISPATCH DASHBOARD -->
+    <section id="powerBiSection" class="space-y-6">
+      
+      <!-- Top Section Header -->
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 bg-emerald-600 text-white font-bold text-[10px] rounded uppercase tracking-wider">Power BI Telemetry</span>
+            <h2 class="text-2xl font-black text-slate-900">Tiffins Care Delivery & Order Dispatch Hub</h2>
+          </div>
+          <p class="text-xs text-slate-500 mt-0.5">Live real-time tracking for customer enquiries, meal preparation stages, and delivery status across Nagpur.</p>
+        </div>
+        
+        <div class="flex items-center gap-2">
+          <button onclick="clearAllHistory()" class="text-xs font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-xl border border-rose-200 transition">
+            <i class="fa-solid fa-trash-can mr-1"></i> Reset Data
+          </button>
+          <span class="text-xs font-semibold text-emerald-800 bg-emerald-100 px-3 py-1.5 rounded-xl border border-emerald-200">
+            <i class="fa-solid fa-rotate text-emerald-600 animate-spin mr-1"></i> Live Real-Time Feed
+          </span>
+        </div>
+      </div>
+
+      <!-- Prominent Advance Payment Policy Banner -->
+      <div class="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-amber-900">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-lg shadow-md shadow-amber-500/30">
+            <i class="fa-solid fa-circle-exclamation"></i>
+          </div>
+          <div>
+            <h4 class="font-extrabold text-sm uppercase tracking-wide text-amber-950 flex items-center gap-2">
+              <span>Important Dashboard Notice: Advance Payment Policy</span>
+              <span class="bg-rose-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full">NON-REFUNDABLE</span>
+            </h4>
+            <p class="text-xs text-amber-800 mt-0.5 font-medium">
+              Advance payment collected for <b>Half Tiffin (₹2,500)</b>, <b>Full Tiffin (₹3,000)</b>, <b>Breakfast (₹1,000)</b>, and <b>Trial Meal (₹120)</b> is <u>strictly non-refundable</u> once order processing/kitchen slots are assigned.
+            </p>
+          </div>
+        </div>
+        <span class="text-[11px] bg-amber-200/70 border border-amber-300 text-amber-900 font-bold px-3 py-1.5 rounded-xl whitespace-nowrap">
+          <i class="fa-solid fa-shield-halved mr-1"></i> Tiffins Care Terms
+        </span>
+      </div>
+
+      <!-- REAL-TIME TRACKER IN DASHBOARD UPPER (Half Tiffin, Full Tiffin, Trial Meal, Breakfast Tracker) -->
+      <div class="bg-emerald-900 text-white p-5 rounded-2xl border border-emerald-700 shadow-md space-y-3">
+        <div class="flex justify-between items-center border-b border-emerald-700 pb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-emerald-300 flex items-center gap-2">
+            <i class="fa-solid fa-layer-group text-emerald-400"></i> Active Meal Plan Subscriptions Tracker (Real-Time)
+          </h3>
+          <span class="text-[11px] text-emerald-300 bg-emerald-800/80 px-2 py-0.5 rounded">Auto-Calculated</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+          
+          <!-- Half Tiffin Tracker -->
+          <div class="bg-emerald-800/60 p-3 rounded-xl border border-emerald-600/40">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Half Tiffins (₹2,500)</div>
+            <div class="text-2xl font-black text-white mt-1" id="trackHalfCount">0</div>
+            <div class="text-[10px] text-emerald-200 mt-0.5" id="trackHalfRev">₹0</div>
+          </div>
+
+          <!-- Full Tiffin Tracker -->
+          <div class="bg-emerald-800/60 p-3 rounded-xl border border-emerald-600/40">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Full Tiffins (₹3,000)</div>
+            <div class="text-2xl font-black text-white mt-1" id="trackFullCount">0</div>
+            <div class="text-[10px] text-emerald-200 mt-0.5" id="trackFullRev">₹0</div>
+          </div>
+
+          <!-- Trial Meal Tracker -->
+          <div class="bg-emerald-800/60 p-3 rounded-xl border border-emerald-600/40">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Trial Meals (₹120)</div>
+            <div class="text-2xl font-black text-white mt-1" id="trackTrialCount">0</div>
+            <div class="text-[10px] text-emerald-200 mt-0.5" id="trackTrialRev">₹0</div>
+          </div>
+
+          <!-- Breakfast Tracker -->
+          <div class="bg-emerald-800/60 p-3 rounded-xl border border-emerald-600/40">
+            <div class="text-[10px] uppercase font-bold text-emerald-300">Breakfast (₹1,000)</div>
+            <div class="text-2xl font-black text-white mt-1" id="trackBreakfastCount">0</div>
+            <div class="text-[10px] text-emerald-200 mt-0.5" id="trackBreakfastRev">₹0</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Power BI KPI Cards Banner -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm text-center">
+          <span class="text-[11px] font-bold uppercase text-slate-500 block">Total Active Orders</span>
+          <div class="text-2xl font-black text-slate-900 mt-1" id="kpiTotalOrders">0</div>
+          <span class="text-[10px] text-emerald-600 font-semibold">Manavnagar Zone</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm text-center">
+          <span class="text-[11px] font-bold uppercase text-slate-500 block">Total Revenue</span>
+          <div class="text-2xl font-black text-emerald-700 mt-1" id="kpiTotalRevenue">₹0</div>
+          <span class="text-[10px] text-emerald-600 font-semibold">Advance Collected</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm text-center">
+          <span class="text-[11px] font-bold uppercase text-slate-500 block">Out for Delivery</span>
+          <div class="text-2xl font-black text-amber-600 mt-1" id="kpiOutDelivery">0</div>
+          <span class="text-[10px] text-amber-700 font-semibold">On the Way (Nagpur)</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm text-center">
+          <span class="text-[11px] font-bold uppercase text-slate-500 block">Delivered Today</span>
+          <div class="text-2xl font-black text-emerald-600 mt-1" id="kpiDelivered">0</div>
+          <span class="text-[10px] text-emerald-600 font-semibold">Doorstep Fulfilled</span>
+        </div>
+
+        <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm text-center">
+          <span class="text-[11px] font-bold uppercase text-slate-500 block">Preparing in Kitchen</span>
+          <div class="text-2xl font-black text-blue-600 mt-1" id="kpiPreparing">0</div>
+          <span class="text-[10px] text-blue-600 font-semibold">Hot & Fresh Pack</span>
+        </div>
+
+      </div>
+
+      <!-- Power BI Visual Analytics Charts Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Chart 1: Plan Breakdown (Bar) -->
+        <div class="lg:col-span-7 bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+          <h4 class="text-xs font-bold uppercase text-slate-700 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-chart-column text-emerald-600"></i> Plan Distribution & Revenue Breakdown
+          </h4>
+          <div class="h-60">
+            <canvas id="planRevenueChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 2: Delivery Status Distribution (Doughnut) -->
+        <div class="lg:col-span-5 bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm">
+          <h4 class="text-xs font-bold uppercase text-slate-700 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-chart-pie text-emerald-600"></i> Live Delivery Status Matrix
+          </h4>
+          <div class="h-60 flex items-center justify-center">
+            <canvas id="statusDoughnutChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Interactive Customer Enquiries & Deliveries Table -->
+      <div class="bg-white rounded-2xl border border-emerald-100 shadow-sm overflow-hidden">
+        <div class="p-5 border-b border-emerald-100 flex flex-wrap justify-between items-center gap-3">
+          <div>
+            <h3 class="font-bold text-slate-900 text-sm">Customer Enquiries & Tiffin Dispatch Ledger</h3>
+            <span class="text-xs text-slate-500">Live order records with thermal printing, WhatsApp dues reminder, status tabs & delete action.</span>
+          </div>
+          <input type="text" id="orderSearchBox" placeholder="Search Customer, Mobile, Address..." class="px-3 py-1.5 bg-emerald-50/50 border border-emerald-200 rounded-xl text-xs focus:ring-2 focus:ring-emerald-500 outline-none w-60">
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-left text-xs border-collapse min-w-[980px]">
+            <thead>
+              <tr class="bg-emerald-50/80 text-emerald-950 font-bold border-b border-emerald-200">
+                <th class="p-3.5">Order ID / Date</th>
+                <th class="p-3.5">Customer Name</th>
+                <th class="p-3.5">Mobile (WhatsApp)</th>
+                <th class="p-3.5">Delivery Address (Manavnagar)</th>
+                <th class="p-3.5">Dish & Tiffin Plan</th>
+                <th class="p-3.5">Bill Amount</th>
+                <th class="p-3.5">Payment Mode</th>
+                <th class="p-3.5">Delivery Status Tab</th>
+                <th class="p-3.5 text-center">Actions (Invoice / Dues Reminder / Delete)</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody" class="divide-y divide-emerald-100">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CUSTOMER REVIEWS & RATINGS SECTION -->
+    <section id="reviewsSection" class="space-y-6">
+      <div class="flex flex-wrap items-center justify-between gap-4 border-b border-emerald-200 pb-4">
+        <div>
+          <span class="text-xs font-black uppercase tracking-wider text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">Customer Feedback</span>
+          <h2 class="text-2xl font-black text-slate-900 mt-1">What Our Customers in Manavnagar, Dighori Say</h2>
+          <p class="text-slate-500 text-xs">Real-time reviews and ratings from daily mess subscribers.</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="https://g.page/r/CXKAVj06tNdQEAE/review" target="_blank" class="px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-xl shadow transition flex items-center gap-1.5">
+            <i class="fa-brands fa-google"></i> Leave Google Review
+          </a>
+          <div class="flex items-center gap-2 bg-emerald-100 px-3 py-1.5 rounded-xl text-emerald-900 font-bold text-xs">
+            <span class="text-amber-500">★★★★★</span>
+            <span id="avgRatingDisplay">4.9 / 5.0 (58+ Reviews)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add Review Form & Review Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Submit Review Box (4 cols) -->
+        <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-emerald-200 shadow-sm space-y-4">
+          <h3 class="font-bold text-slate-900 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square text-emerald-600"></i> Write a Customer Review
+          </h3>
+          <form id="reviewForm" class="space-y-3">
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Your Name</label>
+              <input type="text" id="revName" placeholder="e.g. Sneha Patel" required class="w-full px-3 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Area / Colony (Nagpur)</label>
+              <input type="text" id="revLocation" placeholder="e.g. Manavnagar / Dighori Naka" required class="w-full px-3 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Tiffin Plan Tried</label>
+              <select id="revPlan" class="w-full px-3 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500">
+                <option value="Half Tiffin (₹2500/mo)">Half Tiffin (₹2,500/mo)</option>
+                <option value="Full Tiffin (₹3000/mo)">Full Tiffin (₹3,000/mo)</option>
+                <option value="Trial Meal (₹120)">Trial Meal (₹120)</option>
+                <option value="Morning Breakfast Plan (₹1000/mo)">Morning Breakfast Plan (₹1,000/mo)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Rating</label>
+              <select id="revStars" class="w-full px-3 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500 font-bold text-amber-600">
+                <option value="5">★★★★★ (5 Stars - Outstanding)</option>
+                <option value="4">★★★★☆ (4 Stars - Very Good)</option>
+                <option value="3">★★★☆☆ (3 Stars - Average)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Feedback / Comment</label>
+              <textarea id="revComment" rows="2" placeholder="Tell us about the taste, packaging, and on-time delivery..." required class="w-full px-3 py-2 bg-emerald-50/40 border border-emerald-200 rounded-xl text-xs outline-none focus:ring-2 focus:ring-emerald-500 resize-none"></textarea>
+            </div>
+            <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl shadow-md transition">
+              Submit Review
+            </button>
+          </form>
+        </div>
+
+        <!-- Review Cards Grid (8 cols) -->
+        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4" id="reviewsContainer">
+          <!-- Injected via JavaScript -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- THERMAL PRINT MODAL / SLIP PREVIEW -->
+  <div id="thermalModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-200 relative animate-fade-in">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-200">
+        <h3 class="font-bold text-slate-900 text-sm flex items-center gap-1.5">
+          <i class="fa-solid fa-receipt text-emerald-600"></i> Thermal POS Invoice (80mm)
+        </h3>
+        <button onclick="closeThermalModal()" class="text-slate-400 hover:text-slate-600 text-lg">&times;</button>
+      </div>
+
+      <!-- Thermal Printable Receipt Area -->
+      <div id="thermalPrintArea" class="my-4 p-4 bg-slate-50 border border-dashed border-slate-300 rounded-lg text-xs font-mono text-slate-800 leading-relaxed">
+        <div class="text-center font-bold text-sm">*** TIFFINS CARE ***</div>
+        <div class="text-center text-[10px]">Manavnagar, Dighori, Nagpur - 440034</div>
+        <div class="text-center text-[10px]">Ph: +91 93566 88361</div>
+        <div class="border-b border-dashed border-slate-400 my-2"></div>
+        
+        <div><b>Order ID:</b> <span id="slipId">TC-2026-000</span></div>
+        <div><b>Date:</b> <span id="slipDate">2026-08-26</span></div>
+        <div><b>Customer:</b> <span id="slipName">Rahul Deshmukh</span></div>
+        <div><b>Mobile:</b> <span id="slipMobile">9356688361</span></div>
+        <div><b>Address:</b> <span id="slipAddress">Manavnagar, Dighori, Nagpur</span></div>
+        
+        <div class="border-b border-dashed border-slate-400 my-2"></div>
+        <div class="flex justify-between font-bold">
+          <span>ITEM / PLAN</span>
+          <span>AMOUNT</span>
+        </div>
+        <div class="flex justify-between text-[11px] my-1">
+          <span id="slipPlan">Full Tiffin (North)</span>
+          <span id="slipAmount">₹3,000</span>
+        </div>
+        <div><b>Menu Type:</b> <span id="slipDish">North Indian Dish</span></div>
+        <div><b>Payment Mode:</b> <span id="slipPayment">PhonePe</span></div>
+        
+        <div class="border-b border-dashed border-slate-400 my-2"></div>
+        <div class="flex justify-between font-black text-sm">
+          <span>TOTAL BILL:</span>
+          <span id="slipTotal">₹3,000</span>
+        </div>
+        <div class="border-b border-dashed border-slate-400 my-2"></div>
+        
+        <div class="text-[9px] text-center font-bold text-rose-700">
+          * ADVANCE PAYMENT IS NON-REFUNDABLE *
+        </div>
+        <div class="text-[9px] text-center mt-1">
+          Thank you for choosing Tiffins Care!
+        </div>
+      </div>
+
+      <div class="flex gap-2 pt-2 border-t border-slate-200">
+        <button onclick="window.print()" class="flex-1 py-2.5 bg-slate-900 hover:bg-black text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+          <i class="fa-solid fa-print"></i> Print Slip
+        </button>
+        <button id="modalWhatsAppBtn" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp Slip
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-emerald-950 text-emerald-200 py-10 px-4 border-t border-emerald-800 text-xs mt-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-2 md:col-span-2">
+        <div class="flex items-center space-x-2 text-white font-bold text-lg">
+          <i class="fa-solid fa-utensils text-emerald-400"></i>
+          <span>TIFFINS CARE - MANAVNAGAR DIGHORI NAGPUR</span>
+        </div>
+        <p class="text-emerald-300 text-xs max-w-sm leading-relaxed">
+          Nutritious, authentic home-cooked meals prepared with love and supreme hygiene. Specialized in North & South Indian Lunch, Dinner, and Breakfast tiffins.
+        </p>
+      </div>
+
+      <div class="space-y-2">
+        <h5 class="text-white font-bold text-xs uppercase tracking-wider">Kitchen & Hub Address</h5>
+        <p class="text-emerald-300">Manavnagar, Dighori, Nagpur, Maharashtra - 440034</p>
+        <p class="text-emerald-300"><b>Service Areas:</b> Manavnagar, Dighori, Hudkeshwar, Umred Road, Nagpur.</p>
+      </div>
+
+      <div class="space-y-2">
+        <h5 class="text-white font-bold text-xs uppercase tracking-wider">Contact & WhatsApp</h5>
+        <p class="text-emerald-300"><i class="fa-solid fa-phone text-emerald-400 mr-2"></i> +91 93566 88361</p>
+        <p class="text-emerald-300"><i class="fa-brands fa-whatsapp text-emerald-400 mr-2"></i> WhatsApp Order Support 24x7</p>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto border-t border-emerald-800/80 mt-8 pt-4 text-center text-emerald-400 text-[11px]">
+      © 2026 Tiffins Care Manavnagar Dighori, Nagpur. All rights reserved. Powered by HTML5 & Power BI Visual Engine.
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-950 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs border border-emerald-700">
+    <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+    <span id="toastMessage">Order logged successfully!</span>
+  </div>
+
+  <script>
+    /* -------------------------------------------------------------------------
+       DATA STATE & PERSISTENT LOCALSTORAGE ENGINE
+       ------------------------------------------------------------------------- */
+    const STORAGE_KEY_ORDERS = 'tiffins_care_orders_history';
+    const STORAGE_KEY_REVIEWS = 'tiffins_care_reviews_history';
+    const STORAGE_KEY_DRAFT = 'tiffins_care_form_draft';
+
+    const defaultSeedOrders = [
+      {
+        id: "TC-2026-101",
+        date: "2026-08-26",
+        name: "Anand Kulkarni",
+        mobile: "9822012345",
+        address: "Flat 204, Manavnagar, Dighori, Nagpur",
+        dish: "North Indian Dish",
+        plan: "Full Tiffin - ₹3,000 / mo",
+        amount: 3000,
+        payment: "PhonePe",
+        status: "Delivered"
+      },
+      {
+        id: "TC-2026-102",
+        date: "2026-08-26",
+        name: "Priya Sundaram",
+        mobile: "9765432109",
+        address: "House No 12, Ganesh Nagar, Manavnagar, Nagpur",
+        dish: "South Indian Dish",
+        plan: "Half Tiffin - ₹2,500 / mo",
+        amount: 2500,
+        payment: "Google Pay (GPay)",
+        status: "Out for Delivery"
+      },
+      {
+        id: "TC-2026-103",
+        date: "2026-08-26",
+        name: "Vikas Meshram",
+        mobile: "9158009988",
+        address: "Plot 88, Umred Road, Near Manavnagar, Nagpur",
+        dish: "Special Combo (North + South)",
+        plan: "Full Tiffin - ₹3,000 / mo",
+        amount: 3000,
+        payment: "Cash on Delivery (COD)",
+        status: "Preparing"
+      },
+      {
+        id: "TC-2026-104",
+        date: "2026-08-26",
+        name: "Nikhil Raut",
+        mobile: "9422114455",
+        address: "Omkar Colony, Manavnagar, Nagpur",
+        dish: "North Indian Dish",
+        plan: "Trial Meal - ₹120 / meal",
+        amount: 120,
+        payment: "PhonePe",
+        status: "Delivered"
+      }
+    ];
+
+    const defaultSeedReviews = [
+      {
+        name: "Amit Deshpande",
+        location: "Manavnagar Ring Road",
+        plan: "Full Tiffin (₹3000/mo)",
+        stars: 5,
+        date: "Today",
+        comment: "The rotis are genuinely soft like home, and paneer sabzi was fresh. Timely delivery at 1:15 PM sharp."
+      },
+      {
+        name: "Kavita Rao",
+        location: "Near Manavnagar Dighori",
+        plan: "Half Tiffin (₹2500/mo)",
+        stars: 5,
+        date: "Yesterday",
+        comment: "Best South Indian sambar and rasam in Nagpur! Very hygienic packaging and healthy food."
+      },
+      {
+        name: "Siddharth Verma",
+        location: "Umred Road",
+        plan: "Morning Breakfast Plan (₹1000/mo)",
+        stars: 5,
+        date: "2 days ago",
+        comment: "Hot Tarri Poha and Idli delivered right before 7:30 AM before my college schedule. Super satisfied!"
+      },
+      {
+        name: "Pooja Wankhede",
+        location: "Manavnagar / Dighori",
+        plan: "Trial Meal (₹120)",
+        stars: 4,
+        date: "3 days ago",
+        comment: "Took the single trial meal first, loved the dal tadka and booked the monthly full tiffin immediately."
+      }
+    ];
+
+    // Load from LocalStorage or fall back to default
+    let orderRecords = JSON.parse(localStorage.getItem(STORAGE_KEY_ORDERS)) || defaultSeedOrders;
+    let reviewsData = JSON.parse(localStorage.getItem(STORAGE_KEY_REVIEWS)) || defaultSeedReviews;
+    let charts = {};
+
+    function saveOrdersToStorage() {
+      localStorage.setItem(STORAGE_KEY_ORDERS, JSON.stringify(orderRecords));
+    }
+
+    function saveReviewsToStorage() {
+      localStorage.setItem(STORAGE_KEY_REVIEWS, JSON.stringify(reviewsData));
+    }
+
+    function clearAllHistory() {
+      if (confirm("Reset order history back to default sample records?")) {
+        orderRecords = [...defaultSeedOrders];
+        saveOrdersToStorage();
+        renderTable();
+        updateDashboardTelemetry();
+        updateLastRecordMemo();
+        showToastNotification("Order history reset.");
+      }
+    }
+
+    function deleteOrder(id) {
+      if (confirm(`Are you sure you want to delete order ${id}?`)) {
+        orderRecords = orderRecords.filter(o => o.id !== id);
+        saveOrdersToStorage();
+        renderTable();
+        updateDashboardTelemetry();
+        updateLastRecordMemo();
+        showToastNotification(`Order ${id} deleted successfully.`);
+      }
+    }
+
+    /* -------------------------------------------------------------------------
+       REAL-TIME LIVE ORDER MEMO & LAST RECORD HIGHLIGHT
+       ------------------------------------------------------------------------- */
+    const custNameInput = document.getElementById('custName');
+    const custMobileInput = document.getElementById('custMobile');
+    const custAddressInput = document.getElementById('custAddress');
+    const custDishSelect = document.getElementById('custDish');
+    const custPlanSelect = document.getElementById('custPlan');
+    const custPaymentSelect = document.getElementById('custPayment');
+
+    function updateLastRecordMemo() {
+      if (orderRecords.length > 0) {
+        const last = orderRecords[0]; // Most recent entry
+        document.getElementById('memoLastId').textContent = last.id;
+        document.getElementById('memoLastStatus').textContent = last.status;
+        document.getElementById('memoName').textContent = last.name;
+        document.getElementById('memoMobile').textContent = last.mobile;
+        document.getElementById('memoAddress').textContent = last.address;
+        document.getElementById('memoPlan').textContent = last.plan;
+        document.getElementById('memoDish').textContent = last.dish;
+        document.getElementById('memoPayment').textContent = last.payment;
+        document.getElementById('memoTotal').textContent = '₹' + last.amount.toLocaleString('en-IN');
+      }
+    }
+
+    function syncOrderMemo() {
+      const name = custNameInput.value.trim() || 'Rahul Deshmukh';
+      const mobile = custMobileInput.value.trim() || '9356688361';
+      const address = custAddressInput.value.trim() || 'Manavnagar, Dighori, Nagpur';
+      const dish = custDishSelect.value;
+      const planOpt = custPlanSelect.options[custPlanSelect.selectedIndex];
+      const planText = planOpt ? planOpt.text : 'Full Tiffin - ₹3,000 / mo';
+      const price = planOpt ? (parseInt(planOpt.getAttribute('data-price')) || 3000) : 3000;
+      const payment = custPaymentSelect.value;
+
+      document.getElementById('memoName').textContent = name;
+      document.getElementById('memoMobile').textContent = mobile;
+      document.getElementById('memoAddress').textContent = address;
+      document.getElementById('memoDish').textContent = dish;
+      document.getElementById('memoPlan').textContent = planText;
+      document.getElementById('memoPayment').textContent = payment;
+      document.getElementById('memoTotal').textContent = '₹' + price.toLocaleString('en-IN');
+
+      // Auto-save form draft so reload never loses unsaved typing
+      const draft = {
+        name: custNameInput.value,
+        mobile: custMobileInput.value,
+        address: custAddressInput.value,
+        dish: custDishSelect.value,
+        plan: custPlanSelect.value,
+        payment: custPaymentSelect.value
+      };
+      localStorage.setItem(STORAGE_KEY_DRAFT, JSON.stringify(draft));
+    }
+
+    function loadDraftFromStorage() {
+      const draft = JSON.parse(localStorage.getItem(STORAGE_KEY_DRAFT));
+      if (draft) {
+        if (draft.name) custNameInput.value = draft.name;
+        if (draft.mobile) custMobileInput.value = draft.mobile;
+        if (draft.address) custAddressInput.value = draft.address;
+        if (draft.dish) custDishSelect.value = draft.dish;
+        if (draft.plan) custPlanSelect.value = draft.plan;
+        if (draft.payment) custPaymentSelect.value = draft.payment;
+      }
+    }
+
+    ['input', 'keyup', 'change'].forEach(evt => {
+      custNameInput.addEventListener(evt, syncOrderMemo);
+      custMobileInput.addEventListener(evt, syncOrderMemo);
+      custAddressInput.addEventListener(evt, syncOrderMemo);
+      custDishSelect.addEventListener(evt, syncOrderMemo);
+      custPlanSelect.addEventListener(evt, syncOrderMemo);
+      custPaymentSelect.addEventListener(evt, syncOrderMemo);
+    });
+
+    /* -------------------------------------------------------------------------
+       FORM SUBMISSION HANDLER (SAVES ENTRY TO HISTORY PERSISTENTLY)
+       ------------------------------------------------------------------------- */
+    document.getElementById('tiffinOrderForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = custNameInput.value.trim();
+      const mobile = custMobileInput.value.trim();
+      const address = custAddressInput.value.trim();
+      const dish = custDishSelect.value;
+      const planOpt = custPlanSelect.options[custPlanSelect.selectedIndex];
+      const planText = planOpt.text;
+      const amount = parseInt(planOpt.getAttribute('data-price')) || 3000;
+      const payment = custPaymentSelect.value;
+
+      const newOrder = {
+        id: "TC-2026-" + Math.floor(105 + Math.random() * 890),
+        date: new Date().toISOString().split('T')[0],
+        name: name,
+        mobile: mobile,
+        address: address,
+        dish: dish,
+        plan: planText,
+        amount: amount,
+        payment: payment,
+        status: "Received / Preparing"
+      };
+
+      orderRecords.unshift(newOrder);
+      saveOrdersToStorage();
+      renderTable();
+      updateDashboardTelemetry();
+      updateLastRecordMemo();
+      showToastNotification(`Order logged & saved for ${name} (₹${amount})!`);
+      
+      // Open Thermal Invoice Preview automatically
+      openThermalSlip(newOrder);
+
+      // Reset input fields
+      custNameInput.value = '';
+      custMobileInput.value = '';
+      custAddressInput.value = '';
+      localStorage.removeItem(STORAGE_KEY_DRAFT);
+      syncOrderMemo();
+    });
+
+    /* -------------------------------------------------------------------------
+       THERMAL PRINT INVOICE & WHATSAPP DUES REMINDER ENGINE
+       ------------------------------------------------------------------------- */
+    let currentSlipOrder = null;
+
+    function openThermalSlipById(id) {
+      const order = orderRecords.find(o => o.id === id);
+      if (order) openThermalSlip(order);
+    }
+
+    function openThermalSlip(order) {
+      currentSlipOrder = order;
+      document.getElementById('slipId').textContent = order.id;
+      document.getElementById('slipDate').textContent = order.date;
+      document.getElementById('slipName').textContent = order.name;
+      document.getElementById('slipMobile').textContent = order.mobile;
+      document.getElementById('slipAddress').textContent = order.address;
+      document.getElementById('slipPlan').textContent = order.plan;
+      document.getElementById('slipAmount').textContent = '₹' + order.amount.toLocaleString('en-IN');
+      document.getElementById('slipDish').textContent = order.dish;
+      document.getElementById('slipPayment').textContent = order.payment;
+      document.getElementById('slipTotal').textContent = '₹' + order.amount.toLocaleString('en-IN');
+
+      const modalBtn = document.getElementById('modalWhatsAppBtn');
+      modalBtn.onclick = () => forwardInvoiceWhatsApp(order);
+
+      document.getElementById('thermalModal').classList.remove('hidden');
+    }
+
+    function closeThermalModal() {
+      document.getElementById('thermalModal').classList.add('hidden');
+    }
+
+    function forwardInvoiceWhatsApp(order) {
+      const hour = new Date().getHours();
+      let greeting = "Namaste & Good Morning";
+      if (hour >= 12 && hour < 17) greeting = "Namaste & Good Afternoon";
+      else if (hour >= 17) greeting = "Namaste & Good Evening";
+
+      const text = `🙏 *${greeting}, ${order.name} Ji!*\n` +
+                   `Thank you for choosing *Tiffins Care, Manavnagar, Dighori, Nagpur*. Here is your official order invoice & confirmation details:\n\n` +
+                   `🧾 *TIFFINS CARE - OFFICIAL INVOICE & RECEIPT*\n` +
+                   `📍 *Location:* Manavnagar, Dighori, Nagpur (MH) | 📞 +91 93566 88361\n` +
+                   `----------------------------------------\n` +
+                   `📦 *Order ID:* ${order.id}\n` +
+                   `📅 *Date:* ${order.date}\n` +
+                   `👤 *Customer Name:* ${order.name}\n` +
+                   `📱 *Mobile Number:* ${order.mobile}\n` +
+                   `📍 *Delivery Address:* ${order.address}\n` +
+                   `🍲 *Dish Category:* ${order.dish}\n` +
+                   `🍱 *Tiffin Plan:* ${order.plan}\n` +
+                   `💵 *Payment Mode:* ${order.payment}\n` +
+                   `💰 *Bill Amount:* ₹${order.amount.toLocaleString('en-IN')} (PAID)\n` +
+                   `🚚 *Current Delivery Status:* ${order.status}\n` +
+                   `----------------------------------------\n` +
+                   `⚠️ *Note:* Advance payment is strictly non-refundable once kitchen preparation starts.\n\n` +
+                   `✨ *Warm Regards,*\n` +
+                   `*Team Tiffins Care, Manavnagar Dighori Nagpur* 🍲🌿\n` +
+                   `_Pure, Hygienic & Homemade Meals at your Doorstep!_`;
+
+      window.open(`https://wa.me/91${order.mobile}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function sendDuesReminderWhatsApp(order) {
+      const text = `⚠️ *PAYMENT & DUES REMINDER - TIFFINS CARE*%0A%0A` +
+                   `Dear *${order.name} Ji*,%0A%0A` +
+                   `This is a friendly reminder regarding your active tiffin subscription (*Order ID: ${order.id}*).%0A%0A` +
+                   `📋 *Plan:* ${order.plan}%0A` +
+                   `💵 *Total Billed:* ₹${order.amount.toLocaleString('en-IN')}%0A` +
+                   `💳 *Payment Status:* Payment received minus pending dues / balance check.%0A%0A` +
+                   `Please clear any remaining balance at your earliest convenience via PhonePe/GPay on *9356688361* to ensure uninterrupted daily tiffin delivery.%0A%0A` +
+                   `Thank you!%0A` +
+                   `*Team Tiffins Care, Manavnagar Dighori Nagpur* 🍲`;
+
+      window.open(`https://wa.me/91${order.mobile}?text=${text}`, '_blank');
+    }
+
+    function sendWhatsAppDirect() {
+      const name = custNameInput.value.trim() || 'Customer';
+      const mobile = document.getElementById('custMobile').value.trim() || 'Not provided';
+      const address = document.getElementById('custAddress').value.trim() || 'Manavnagar, Dighori, Nagpur';
+      const dish = custDishSelect.value;
+      const plan = custPlanSelect.options[custPlanSelect.selectedIndex].text;
+      const payment = custPaymentSelect.value;
+
+      const msg = `*NEW TIFFIN BOOKING ENQUIRY - TIFFINS CARE MANAVNAGAR DIGHORI*%0A%0A` +
+                  `*Customer Name:* ${name}%0A` +
+                  `*Mobile No:* ${mobile}%0A` +
+                  `*Delivery Address:* ${address}%0A` +
+                  `*Menu Selection:* ${dish}%0A` +
+                  `*Tiffin Plan:* ${plan}%0A` +
+                  `*Payment Mode:* ${payment}%0A` +
+                  `*Advance Note:* Acknowledged that advance payment is non-refundable.%0A` +
+                  `*Location:* Manavnagar, Dighori, Nagpur (MH)`;
+
+      window.open(`https://wa.me/919356688361?text=${msg}`, '_blank');
+    }
+
+    /* -------------------------------------------------------------------------
+       TABLE RENDERING & STATUS COLORING
+       ------------------------------------------------------------------------- */
+    function getStatusClass(status) {
+      switch (status) {
+        case 'Delivered': return 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        case 'Out for Delivery': return 'bg-amber-100 text-amber-800 border-amber-300';
+        case 'Preparing':
+        case 'Received / Preparing': return 'bg-blue-100 text-blue-800 border-blue-300';
+        default: return 'bg-slate-100 text-slate-800 border-slate-300';
+      }
+    }
+
+    function updateOrderStatus(id, newStatus, selectElem) {
+      const order = orderRecords.find(o => o.id === id);
+      if (order) {
+        order.status = newStatus;
+        saveOrdersToStorage();
+        selectElem.className = `text-[11px] font-bold px-2.5 py-1 rounded-lg border outline-none cursor-pointer transition ${getStatusClass(newStatus)}`;
+        updateDashboardTelemetry();
+        updateLastRecordMemo();
+        showToastNotification(`Order ${id} updated to: ${newStatus}`);
+      }
+    }
+
+    function renderTable(filteredData = null) {
+      const data = filteredData !== null ? filteredData : orderRecords;
+      const tbody = document.getElementById('ordersTableBody');
+      tbody.innerHTML = '';
+
+      if (data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" class="p-6 text-center text-slate-400 font-medium">No order records found in history.</td></tr>`;
+        return;
+      }
+
+      data.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-emerald-50/50 transition";
+        tr.innerHTML = `
+          <td class="p-3.5">
+            <span class="font-mono font-bold text-emerald-800">${item.id}</span>
+            <span class="block text-[10px] text-slate-400">${item.date}</span>
+          </td>
+          <td class="p-3.5 font-bold text-slate-900">${item.name}</td>
+          <td class="p-3.5">
+            <span class="font-mono">${item.mobile}</span>
+          </td>
+          <td class="p-3.5 max-w-xs truncate text-slate-600" title="${item.address}">${item.address}</td>
+          <td class="p-3.5">
+            <span class="font-semibold text-slate-900">${item.plan}</span>
+            <span class="block text-[10px] text-emerald-700">${item.dish}</span>
+          </td>
+          <td class="p-3.5 font-bold text-emerald-700">₹${item.amount.toLocaleString('en-IN')}</td>
+          <td class="p-3.5">
+            <span class="bg-emerald-100/70 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">${item.payment}</span>
+          </td>
+          <td class="p-3.5">
+            <select onchange="updateOrderStatus('${item.id}', this.value, this)" class="text-[11px] font-bold px-2.5 py-1 rounded-lg border outline-none cursor-pointer transition ${getStatusClass(item.status)}">
+              <option value="Preparing" ${item.status.includes('Preparing') ? 'selected' : ''}>Preparing</option>
+              <option value="Out for Delivery" ${item.status === 'Out for Delivery' ? 'selected' : ''}>Out for Delivery</option>
+              <option value="Delivered" ${item.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+            </select>
+          </td>
+          <td class="p-3.5 text-center flex items-center justify-center gap-1.5">
+            <button onclick="openThermalSlipById('${item.id}')" class="p-1.5 bg-slate-900 hover:bg-black text-white rounded-lg text-xs shadow transition" title="Print Thermal Invoice">
+              <i class="fa-solid fa-receipt"></i>
+            </button>
+            <button onclick="forwardInvoiceWhatsApp(orderRecords.find(o => o.id === '${item.id}'))" class="p-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs shadow transition" title="Send Invoice via WhatsApp">
+              <i class="fa-brands fa-whatsapp"></i>
+            </button>
+            <button onclick="sendDuesReminderWhatsApp(orderRecords.find(o => o.id === '${item.id}'))" class="p-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs shadow transition" title="Payment Received & Dues Reminder WhatsApp">
+              <i class="fa-solid fa-file-invoice-dollar"></i>
+            </button>
+            <button onclick="deleteOrder('${item.id}')" class="p-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg text-xs shadow transition" title="Delete Order Record">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    /* -------------------------------------------------------------------------
+       POWER BI DASHBOARD TELEMETRY, TRACKER & CHARTS
+       ------------------------------------------------------------------------- */
+    function updateDashboardTelemetry() {
+      const totalOrders = orderRecords.length;
+      const totalRevenue = orderRecords.reduce((sum, o) => sum + o.amount, 0);
+      const outDelivery = orderRecords.filter(o => o.status === 'Out for Delivery').length;
+      const delivered = orderRecords.filter(o => o.status === 'Delivered').length;
+      const preparing = orderRecords.filter(o => o.status.includes('Preparing')).length;
+
+      document.getElementById('kpiTotalOrders').textContent = totalOrders;
+      document.getElementById('kpiTotalRevenue').textContent = '₹' + totalRevenue.toLocaleString('en-IN');
+      document.getElementById('kpiOutDelivery').textContent = outDelivery;
+      document.getElementById('kpiDelivered').textContent = delivered;
+      document.getElementById('kpiPreparing').textContent = preparing;
+
+      let halfCount = 0, halfRev = 0;
+      let fullCount = 0, fullRev = 0;
+      let trialCount = 0, trialRev = 0;
+      let bkCount = 0, bkRev = 0;
+
+      orderRecords.forEach(o => {
+        if (o.plan.includes('2500') || o.plan.toLowerCase().includes('half')) {
+          halfCount++;
+          halfRev += o.amount;
+        } else if (o.plan.includes('3000') || o.plan.toLowerCase().includes('full')) {
+          fullCount++;
+          fullRev += o.amount;
+        } else if (o.plan.includes('120') || o.plan.toLowerCase().includes('trial')) {
+          trialCount++;
+          trialRev += o.amount;
+        } else if (o.plan.includes('1000') || o.plan.toLowerCase().includes('breakfast')) {
+          bkCount++;
+          bkRev += o.amount;
+        }
+      });
+
+      document.getElementById('trackHalfCount').textContent = `${halfCount} Subscriptions`;
+      document.getElementById('trackHalfRev').textContent = `₹${halfRev.toLocaleString('en-IN')} Billed`;
+
+      document.getElementById('trackFullCount').textContent = `${fullCount} Subscriptions`;
+      document.getElementById('trackFullRev').textContent = `₹${fullRev.toLocaleString('en-IN')} Billed`;
+
+      document.getElementById('trackTrialCount').textContent = `${trialCount} Meals`;
+      document.getElementById('trackTrialRev').textContent = `₹${trialRev.toLocaleString('en-IN')} Billed`;
+
+      document.getElementById('trackBreakfastCount').textContent = `${bkCount} Subscriptions`;
+      document.getElementById('trackBreakfastRev').textContent = `₹${bkRev.toLocaleString('en-IN')} Billed`;
+
+      renderPowerBICharts(delivered, outDelivery, preparing);
+    }
+
+    function renderPowerBICharts(delivered, outDelivery, preparing) {
+      if (charts.bar) charts.bar.destroy();
+      if (charts.doughnut) charts.doughnut.destroy();
+
+      const planTotals = {
+        "Half Tiffin (₹2500)": 0,
+        "Full Tiffin (₹3000)": 0,
+        "Trial Meal (₹120)": 0,
+        "Breakfast (₹1000)": 0
+      };
+
+      orderRecords.forEach(o => {
+        if (o.plan.includes('2500') || o.plan.toLowerCase().includes('half')) planTotals["Half Tiffin (₹2500)"] += o.amount;
+        else if (o.plan.includes('3000') || o.plan.toLowerCase().includes('full')) planTotals["Full Tiffin (₹3000)"] += o.amount;
+        else if (o.plan.includes('120') || o.plan.toLowerCase().includes('trial')) planTotals["Trial Meal (₹120)"] += o.amount;
+        else if (o.plan.includes('1000') || o.plan.toLowerCase().includes('breakfast')) planTotals["Breakfast (₹1000)"] += o.amount;
+      });
+
+      const ctxBar = document.getElementById('planRevenueChart').getContext('2d');
+      charts.bar = new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(planTotals),
+          datasets: [{
+            label: 'Total Revenue (INR)',
+            data: Object.values(planTotals),
+            backgroundColor: ['#059669', '#10b981', '#34d399', '#6ee7b7'],
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, grid: { color: '#f0fdf4' } },
+            x: { grid: { display: false } }
+          }
+        }
+      });
+
+      const ctxDoughnut = document.getElementById('statusDoughnutChart').getContext('2d');
+      charts.doughnut = new Chart(ctxDoughnut, {
+        type: 'doughnut',
+        data: {
+          labels: ['Delivered', 'Out for Delivery', 'Preparing'],
+          datasets: [{
+            data: [delivered, outDelivery, preparing],
+            backgroundColor: ['#10b981', '#f59e0b', '#3b82f6'],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { position: 'bottom' } }
+        }
+      });
+    }
+
+    /* -------------------------------------------------------------------------
+       REVIEWS ENGINE (PERSISTED)
+       ------------------------------------------------------------------------- */
+    function renderReviews() {
+      const container = document.getElementById('reviewsContainer');
+      container.innerHTML = '';
+
+      reviewsData.forEach(rev => {
+        let starsStr = '★'.repeat(rev.stars) + '☆'.repeat(5 - rev.stars);
+        const card = document.createElement('div');
+        card.className = "bg-white p-5 rounded-2xl border border-emerald-100 shadow-sm space-y-2";
+        card.innerHTML = `
+          <div class="flex justify-between items-start">
+            <div>
+              <h4 class="font-bold text-slate-900 text-sm">${rev.name}</h4>
+              <span class="text-[10px] text-emerald-700 font-semibold block">${rev.location} • <span class="text-slate-400">${rev.plan}</span></span>
+            </div>
+            <span class="text-amber-500 text-xs font-bold">${starsStr}</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed italic">"${rev.comment}"</p>
+          <div class="text-[10px] text-slate-400 flex items-center gap-1 pt-1 border-t border-slate-50">
+            <i class="fa-solid fa-circle-check text-emerald-500"></i> Verified Tiffin Customer • ${rev.date}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const newRev = {
+        name: document.getElementById('revName').value.trim(),
+        location: document.getElementById('revLocation').value.trim(),
+        plan: document.getElementById('revPlan').value,
+        stars: parseInt(document.getElementById('revStars').value),
+        date: "Just now",
+        comment: document.getElementById('revComment').value.trim()
+      };
+
+      reviewsData.unshift(newRev);
+      saveReviewsToStorage();
+      renderReviews();
+      showToastNotification("Thank you! Your review has been saved & published.");
+      document.getElementById('reviewForm').reset();
+    });
+
+    /* -------------------------------------------------------------------------
+       SEARCH FILTER & TOAST NOTIFICATION
+       ------------------------------------------------------------------------- */
+    document.getElementById('orderSearchBox').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      const filtered = orderRecords.filter(o => 
+        o.name.toLowerCase().includes(q) || 
+        o.mobile.includes(q) || 
+        o.address.toLowerCase().includes(q) || 
+        o.id.toLowerCase().includes(q)
+      );
+      renderTable(filtered);
+    });
+
+    function showToastNotification(msg) {
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastMessage').textContent = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3500);
+    }
+
+    // Initial Launch
+    window.addEventListener('DOMContentLoaded', () => {
+      loadDraftFromStorage();
+      syncOrderMemo();
+      renderTable();
+      updateDashboardTelemetry();
+      updateLastRecordMemo();
+      renderReviews();
+    });
+  </script>
+</body>
+</html>
